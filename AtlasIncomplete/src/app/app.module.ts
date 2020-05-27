@@ -11,6 +11,10 @@ import { CharacterPageComponent } from './maincontentdisplay/character-page/char
 import { LoremechnavPageComponent } from './maincontentdisplay/loremechnav-page/loremechnav-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,9 @@ import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.c
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
