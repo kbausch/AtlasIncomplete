@@ -1,1 +1,11 @@
-<p>mainnav-page works!</p>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 ml-4 mr-4 justify-content-around">
+    <div class="col mt-4" *ngFor="let navlink of navList">
+        <div class="card border-0">
+            <img [src]="navlink.image" class="card-img-top" [alt]="navlink.title">
+            <div class="card-body text-center p-2">
+                <h5 class="oldscript m-0">{{navlink.title}}<a class="stretched-link"
+                        [routerLink]="[navlink.routerlink]"></a></h5>
+            </div>
+        </div>
+    </div>
+</div>
