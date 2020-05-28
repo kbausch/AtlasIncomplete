@@ -8,7 +8,6 @@ import { LandingPageComponent } from './maincontentdisplay/landing-page/landing-
 import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-page.component';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
-import { LoremechnavPageComponent } from './maincontentdisplay/loremechnav-page/loremechnav-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
 
 import { AngularFireModule } from '@angular/fire';
@@ -22,7 +21,6 @@ import { environment } from '../environments/environment';
     MainnavPageComponent,
     TopNavbarComponent,
     CharacterPageComponent,
-    LoremechnavPageComponent,
     AboutPageComponent
   ],
   imports: [

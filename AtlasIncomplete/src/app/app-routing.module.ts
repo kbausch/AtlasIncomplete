@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './maincontentdisplay/landing-page/landing-page.component';
 import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-page.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
-import { LoremechnavPageComponent } from './maincontentdisplay/loremechnav-page/loremechnav-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
 
 
@@ -12,7 +11,6 @@ const routes: Routes = [
   {path: '', component : LandingPageComponent},
   {path: 'mainnav-page', component : MainnavPageComponent},
   {path: 'character-page', component : CharacterPageComponent},
-  {path: 'loremechnav-page', component : LoremechnavPageComponent},
   {path: 'about-page', component : AboutPageComponent},
 ];
 

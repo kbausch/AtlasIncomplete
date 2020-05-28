@@ -10,6 +10,7 @@
                     </a>
                     <a *ngIf="navlink.link" [href]="navlink.link" class="stretched-link">
                     </a>
+                    <a *ngIf="navlink.lore" (click)= "getLoreNavList()" class="stretched-link"></a>
                 </h5>
             </div>
         </div>

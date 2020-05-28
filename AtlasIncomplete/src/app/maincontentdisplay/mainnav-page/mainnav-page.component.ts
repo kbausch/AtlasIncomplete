@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationModel } from '../../shared/models/navigation-model';
+import { DataRetrieverService } from '../../shared/services/data-retriever.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mainnav-page',
@@ -7,18 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainnavPageComponent implements OnInit {
 
-  constructor() { }
+  navList: NavigationModel[];
+
+  constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
+    this.getNavList();
   }
 
-  public navList: Object[]= [
-    {title: 'Characters', routerlink: '/character-page', image:'https://66.media.tumblr.com/4aadb561ee128380f81a50f857e5f38b/tumblr_phdlg4LwT81u4vhy0o1_r1_1280.png'},
-    {title: 'Lore and Mechanics', routerlink: '/loremechnav-page', image:'../../assets/scrolls-of-uncertain-provenance.png'},
-    {title: 'About', routerlink: '/about-page', image:'https://dragonflytraining.files.wordpress.com/2013/10/man-with-question-01.png'},
-    {title: 'Watch', link:'https://www.youtube.com/channel/UCizZxXhxljvZ7rAbO3sgXlg', image:'https://image.flaticon.com/icons/png/512/48/48968.png'},
-    {title: 'Sick Loot', link:'http://poop.io/', image:'../../assets/776aee01f74dfd22f80c18109c3df1b2.png'},
-    {title: 'Forums', routerlink: '/mainnav-page', image:'https://2.bp.blogspot.com/-ldPKjV8-KcQ/UCRaeanCN5I/AAAAAAAAAbE/JnxU9m4dJz4/s1600/Bar-Fight.jpg'}
-  ];
+  getNavList() {
+    this.dataretriever.getMainNavRef().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(navlinks => {
+      this.navList = navlinks;
+    });
+  }
+
+  getLoreNavList() {
+    this.dataretriever.getLoreNavRef().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(navlinks => {
+      this.navList = navlinks;
+    });
+  }
 
 }

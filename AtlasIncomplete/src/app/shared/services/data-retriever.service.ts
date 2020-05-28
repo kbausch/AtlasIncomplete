@@ -9,14 +9,24 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 })
 export class DataRetrieverService {
 
-  charactersRef: AngularFireList<CharactersModel> = null;
+  private charactersRef: AngularFireList<CharactersModel> = null;
+  private mainNavRef: AngularFireList<NavigationModel> = null;
 
   constructor(private db: AngularFireDatabase) {
     this.charactersRef = db.list('/characters');
-   }
+    this.mainNavRef = db.list('/mainnavlink');
+  }
 
-   getCharactersList(): AngularFireList<CharactersModel> {
+  getCharactersList(): AngularFireList<CharactersModel> {
     return this.charactersRef;
+  }
+
+  getMainNavRef(): AngularFireList<NavigationModel> {
+    return this.mainNavRef;
+  }
+
+  getLoreNavRef(): AngularFireList<NavigationModel> {
+    return this.db.list('/lorenavlink');
   }
 
 }
