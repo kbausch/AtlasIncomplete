@@ -12,7 +12,7 @@ import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.c
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { firebaseConfig } from '../environments/environment';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { firebaseConfig } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
   providers: [],
