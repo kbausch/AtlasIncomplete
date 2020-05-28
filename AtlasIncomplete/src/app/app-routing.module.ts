@@ -8,8 +8,8 @@ import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.c
 
 
 const routes: Routes = [
-  {path: '', component : LandingPageComponent},
-  {path: 'mainnav-page', component : MainnavPageComponent},
+  {path: '', component : LandingPageComponent, data: {animation: 'landPage'}},
+  {path: 'mainnav-page', component : MainnavPageComponent, data: {animation: 'mainNav'}},
   {path: 'character-page', component : CharacterPageComponent},
   {path: 'about-page', component : AboutPageComponent},
 ];
