@@ -1,0 +1,10 @@
+<div class="row text-center justify-content-around">
+    <div class="col-6" style="background-image: url('https://nataliedelgadomusic.files.wordpress.com/2012/12/scroll-background.png?w=745');
+    background-position: center;
+    background-size: cover;">
+        <ngx-auth-firebaseui-login providers="[]"
+            logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png"
+            (onSuccess)="printUser($event)" (onError)="printError($event)">
+        </ngx-auth-firebaseui-login>
+    </div>
+</div>

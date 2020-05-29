@@ -10,10 +10,14 @@ import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
+import { LoginPageComponent } from './maincontentdisplay/login-page/login-page.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { environment } from '../environments/environment';
+import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
+import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,10 @@ import { environment } from '../environments/environment';
     MainnavPageComponent,
     TopNavbarComponent,
     CharacterPageComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,32 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NgxAuthFirebaseUIModule.forRoot({
+      apiKey: environment.firebase.apiKey,
+      authDomain: '"atlas-incomplete.firebaseapp.com',
+      databaseURL: 'https://atlas-incomplete.firebaseio.com',
+      projectId: 'atlas-incomplete',
+      storageBucket: 'atlas-incomplete.appspot.com',
+      messagingSenderId: '814980259513'
+    },
+      () => 'atlas-incomplete',
+      {
+        enableFirestoreSync: true, // enable/disable autosync users with firestore
+        toastMessageOnAuthSuccess: true, // whether to open/show a snackbar message on auth success - default : true
+        toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
+        authGuardFallbackURL: '/loggedout', // url for unauthenticated users - to use in combination with canActivate feature on a route
+        authGuardLoggedInURL: '/loggedin', // url for authenticated users - to use in combination with canActivate feature on a route
+        passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
+        passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
+        // Same as password but for the name
+        nameMaxLength: 50,
+        nameMinLength: 2,
+        // If set, sign-in/up form is not available until email has been verified.
+        // Plus protected routes are still protected even though user is connected.
+        guardProtectedRoutesUntilEmailIsVerified: true,
+        enableEmailVerification: true, // default: true
+      })
   ],
   providers: [],
   bootstrap: [AppComponent]
