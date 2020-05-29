@@ -21,7 +21,10 @@ export class LoginPageComponent implements OnInit {
 
   printError(event) {
     console.log("Failure");
-    console.error(event);
+  }
+
+  createAccount(){
+    this.route.navigateByUrl('/register-page');
   }
 
 }

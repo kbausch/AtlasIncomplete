@@ -5,6 +5,8 @@ import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
 import { LoginPageComponent } from './maincontentdisplay/login-page/login-page.component';
+import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
+import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
 
 
 
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'character-page', component : CharacterPageComponent},
   {path: 'about-page', component : AboutPageComponent},
   {path: 'login-page', component : LoginPageComponent},
+  {path: 'register-page', component : RegisterPageComponent},
+  {path: 'profile-page', component : ProfilePageComponent},
 ];
 
 @NgModule({

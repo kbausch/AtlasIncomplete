@@ -4,7 +4,7 @@
     background-size: cover;">
         <ngx-auth-firebaseui-login providers="[]"
             logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png"
-            (onSuccess)="printUser($event)" (onError)="printError($event)">
+            (onSuccess)="printUser($event)" (onError)="printError($event)" (onCreateAccountRequested)="createAccount()">
         </ngx-auth-firebaseui-login>
     </div>
 </div>

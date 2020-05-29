@@ -11,13 +11,13 @@ import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
 import { LoginPageComponent } from './maincontentdisplay/login-page/login-page.component';
+import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
+import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { environment } from '../environments/environment';
-import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
-import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-
     },
       () => 'atlas-incomplete',
       {
-        enableFirestoreSync: true, // enable/disable autosync users with firestore
+        enableFirestoreSync: false, // enable/disable autosync users with firestore
         toastMessageOnAuthSuccess: true, // whether to open/show a snackbar message on auth success - default : true
         toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
         authGuardFallbackURL: '/loggedout', // url for unauthenticated users - to use in combination with canActivate feature on a route
