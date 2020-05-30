@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
+  }
+
+  getVerification(){
+    if(sessionStorage.getItem('verified') !== null){
+      return (sessionStorage.getItem('verified') === 'true');
+    }else{
+      return false;
+    }
+  }
+
+  signOut(){
+    sessionStorage.setItem('verified', 'false');
   }
 
 }

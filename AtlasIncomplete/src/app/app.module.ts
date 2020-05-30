@@ -13,6 +13,7 @@ import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.c
 import { LoginPageComponent } from './maincontentdisplay/login-page/login-page.component';
 import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
 import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
+import { ForumsPageComponent } from './maincontentdisplay/forums-page/forums-page.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -29,7 +30,8 @@ import { environment } from '../environments/environment';
     AboutPageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    ForumsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +53,6 @@ import { environment } from '../environments/environment';
         enableFirestoreSync: false, // enable/disable autosync users with firestore
         toastMessageOnAuthSuccess: true, // whether to open/show a snackbar message on auth success - default : true
         toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
-        authGuardFallbackURL: '/loggedout', // url for unauthenticated users - to use in combination with canActivate feature on a route
-        authGuardLoggedInURL: '/loggedin', // url for authenticated users - to use in combination with canActivate feature on a route
         passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
         passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
         // Same as password but for the name
