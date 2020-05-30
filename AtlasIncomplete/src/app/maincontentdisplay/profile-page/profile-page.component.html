@@ -1,5 +1,5 @@
 <div class="row text-center justify-content-around">
     <div class="col-6 m-5">
-        <ngx-auth-firebaseui-user></ngx-auth-firebaseui-user>
+        <ngx-auth-firebaseui-user (onSignOut)="signOut()" (onAccountDeleted)="signOut()"></ngx-auth-firebaseui-user>
     </div>
 </div>
