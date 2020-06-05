@@ -10,9 +10,9 @@ import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
-import { LoginPageComponent } from './maincontentdisplay/login-page/login-page.component';
-import { RegisterPageComponent } from './maincontentdisplay/register-page/register-page.component';
-import { ProfilePageComponent } from './maincontentdisplay/profile-page/profile-page.component';
+import { LoginPageComponent } from './maincontentdisplay/account-components/login-page/login-page.component';
+import { RegisterPageComponent } from './maincontentdisplay/account-components/register-page/register-page.component';
+import { ProfilePageComponent } from './maincontentdisplay/account-components/profile-page/profile-page.component';
 import { ForumsPageComponent } from './maincontentdisplay/forums-page/forums-page.component';
 
 import { AngularFireModule } from '@angular/fire';

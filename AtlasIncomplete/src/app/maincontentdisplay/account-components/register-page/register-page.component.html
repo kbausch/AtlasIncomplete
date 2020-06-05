@@ -3,8 +3,9 @@
     background-position: center;
     background-size: cover;">
         <ngx-auth-firebaseui-register
-            logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png" 
-            messageOnAuthSuccess="This turbo worked" (onSuccess)="registerSuccess()" (onError)="printError($event)" (onLoginRequested)="logIn()">
+            logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png"
+            (onSuccess)="registerSuccess()" (onError)="printError($event)"
+            (onLoginRequested)="logIn()">
         </ngx-auth-firebaseui-register>
     </div>
 </div>
