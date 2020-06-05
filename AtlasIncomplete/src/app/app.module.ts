@@ -42,11 +42,11 @@ import { environment } from '../environments/environment';
     AngularFireDatabaseModule,
     NgxAuthFirebaseUIModule.forRoot({
       apiKey: environment.firebase.apiKey,
-      authDomain: '"atlas-incomplete.firebaseapp.com',
-      databaseURL: 'https://atlas-incomplete.firebaseio.com',
-      projectId: 'atlas-incomplete',
-      storageBucket: 'atlas-incomplete.appspot.com',
-      messagingSenderId: '814980259513'
+      authDomain: environment.firebase.authDomain,
+      databaseURL: environment.firebase.databaseURL,
+      projectId: environment.firebase.projectId,
+      storageBucket: environment.firebase.storageBucket,
+      messagingSenderId: environment.firebase.messagingSenderId
     },
       () => 'atlas-incomplete',
       {
@@ -62,6 +62,8 @@ import { environment } from '../environments/environment';
         // Plus protected routes are still protected even though user is connected.
         guardProtectedRoutesUntilEmailIsVerified: true,
         enableEmailVerification: true, // default: true
+        authGuardFallbackURL: '/login-page',
+        authGuardLoggedInURL: '/profile-page',
       })
   ],
   providers: [],

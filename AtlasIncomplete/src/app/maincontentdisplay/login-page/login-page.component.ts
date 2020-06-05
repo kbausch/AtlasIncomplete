@@ -15,8 +15,6 @@ export class LoginPageComponent implements OnInit {
 
   printUser(event) {
     console.log("Success");
-    //console.log(event);
-    sessionStorage.setItem('verified',event.emailVerified);
     this.route.navigateByUrl('/');
   }
 

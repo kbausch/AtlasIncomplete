@@ -1,21 +1,20 @@
 <!--Below is the navbar-->
 <nav id="Navbar" class="navbar nav_scss p-1 align-items-center">
     <div class="col-12 col-md-8 col-lg-10 nav-item text-left">
-        <img src="https://media.discordapp.net/attachments/711730603065868338/714566116109713518/Atlas_Incomplete_Icon.png" alt="Logo" height="45px" style="float:left">
+        <img src="https://media.discordapp.net/attachments/711730603065868338/714566116109713518/Atlas_Incomplete_Icon.png"
+            alt="Logo" height="45px" style="float:left">
         <h1 class="oldscript m-0">Atlas Incomplete</h1>
         <a [routerLink]="['/']" class="stretched-link"></a>
     </div>
-    <button *ngIf="!getVerification()" [routerLink]="['login-page']" type="button" class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
+    <button *ngIf="!user" [routerLink]="['login-page']" type="button"
+        class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
         Login
     </button>
-    <button *ngIf="!getVerification()" [routerLink]="['register-page']" type="button" class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
+    <button *ngIf="!user" [routerLink]="['register-page']" type="button"
+        class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
         Sign-up
     </button>
-    <button *ngIf="getVerification()" [routerLink]="['profile-page']" type="button" class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
-        Profile
-    </button>
-    <button *ngIf="getVerification()" type="button" class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript"
-    (click)="signOut()">
-        Sign-out
-    </button>
+    <div class="col-1 d-flex flex-row-reverse">
+        <ngx-auth-firebaseui-avatar [canViewAccount]="false" [links]="links" (onSignOut)="signOut()"></ngx-auth-firebaseui-avatar>
+    </div>
 </nav>

@@ -14,7 +14,6 @@ export class ProfilePageComponent implements OnInit {
   }
 
   signOut(){
-    sessionStorage.setItem('verified', 'false');
     this.route.navigateByUrl('/');
   }
 }

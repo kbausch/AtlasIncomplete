@@ -2,7 +2,7 @@
     <div class="col-6" style="background-image: url('https://nataliedelgadomusic.files.wordpress.com/2012/12/scroll-background.png?w=745');
     background-position: center;
     background-size: cover;">
-        <ngx-auth-firebaseui-login providers="[]"
+        <ngx-auth-firebaseui-login providers="['google']"
             logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png"
             (onSuccess)="printUser($event)" (onError)="printError($event)" (onCreateAccountRequested)="createAccount()">
         </ngx-auth-firebaseui-login>
