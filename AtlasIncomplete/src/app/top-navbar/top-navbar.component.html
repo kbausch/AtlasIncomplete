@@ -14,7 +14,7 @@
         class="col-12 col-md-2 col-lg-1 nav-item btn btn-success text-align-right oldscript">
         Sign-up
     </button>
-    <div class="col-1 d-flex flex-row-reverse">
+    <div *ngIf="user" class="col-1 d-flex flex-row-reverse">
         <ngx-auth-firebaseui-avatar [canViewAccount]="false" [links]="links" (onSignOut)="signOut()"></ngx-auth-firebaseui-avatar>
     </div>
 </nav>

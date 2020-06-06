@@ -1,7 +1,6 @@
 export class NavigationModel {
-    title: string; 
-    routerlink?: string;
-    link?: string;
-    lore?: boolean;
+    title: string;
     image: string;
+    routerlink?: string;
+    link?: boolean;
 }

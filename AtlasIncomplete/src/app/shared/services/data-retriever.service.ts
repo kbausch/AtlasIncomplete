@@ -25,8 +25,8 @@ export class DataRetrieverService {
     return this.mainNavRef;
   }
 
-  getLoreNavRef(): AngularFireList<NavigationModel> {
+  /*getLoreNavRef(): AngularFireList<NavigationModel> {
     return this.db.list('/lorenavlink');
-  }
+  }*/
 
 }

@@ -30,7 +30,7 @@ export class MainnavPageComponent implements OnInit {
     });
   }
 
-  getLoreNavList() {
+  /*getLoreNavList() {
     this.dataretriever.getLoreNavRef().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -40,6 +40,6 @@ export class MainnavPageComponent implements OnInit {
     ).subscribe(navlinks => {
       this.navList = navlinks;
     });
-  }
+  }*/
 
 }
