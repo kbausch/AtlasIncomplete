@@ -1,7 +1,7 @@
-<div class="row text-center justify-content-around">
-    <div class="col-6" style="background-image: url('https://nataliedelgadomusic.files.wordpress.com/2012/12/scroll-background.png?w=745');
-    background-position: center;
-    background-size: cover;">
-        <img src="https://media.giphy.com/media/12HZukMBlutpoQ/giphy.gif">
+<div *ngIf="user">
+    <input type="text" id="message" placeholder="Chat here..." (keyup.enter)="writeNewPost('title', $event.target.value)">
+
+    <div *ngFor="let post of posts | async">
+        {{post.body}}
     </div>
 </div>
