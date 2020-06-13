@@ -1,7 +1,0 @@
-<div *ngIf="user">
-    <input type="text" id="message" placeholder="Chat here..." (keyup.enter)="writeNewPost('title', $event.target.value)">
-
-    <div *ngFor="let post of posts | async">
-        {{post.body}}
-    </div>
-</div>

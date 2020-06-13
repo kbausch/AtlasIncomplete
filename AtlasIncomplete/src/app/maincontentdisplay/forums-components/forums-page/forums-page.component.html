@@ -1,0 +1,38 @@
+<div class="d-flex flex-column bd-highlight rounded-lg bg-dark p-3 mb-3">
+    <div class="row m-1 justify-content-center">
+        <div class="col-12 bg-info rounded-lg">
+            <h2 class="text-center"><u>{{thread}}</u></h2>
+        </div>
+    </div>
+    <div class="mt-2">
+        <div class="row mb-5 ml-1 justify-content-center" *ngFor="let post of posts | async">
+            <div class="text-right">
+                <img [src]="post.content.authorPic" class="rounded" style="max-width:50px;"
+                    [title]="post.content.author" [alt]="post.content.author">
+            </div>
+            <div class="col-12 col-md-11">
+                <div class="card border-0">
+                    <div class="card-body rounded-0 p-2 oldscript d-flex justify-content-between align-items-center">
+                        <h5 class="font-weight-bolder align-middle">{{post.content.title}}</h5>
+                        <button title="Delete Post" class="p-1 btn btn-danger justify-content-center"
+                            *ngIf="post.content.uid === user.uid" (click)="deletePost(post.key)">
+                            <img style="max-width:25px;"
+                                src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
+                        </button>
+                    </div>
+                    <div class="card-title p-3 oldscript rounded-bottom">
+                        <p>{{post.content.body}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm">
+        <div class="card col-12 p-3 form-group">
+            <!--<img [src]="user.photoURL" class="rounded" style="max-width:50px;" [title]="user.displayName" [alt]="user.displayName">-->
+            <input type="text" class="form-control" id="text" placeholder="Write a post here..." [(ngModel)]="postText"
+                name="text">
+            <button type="submit" class=" mt-1 btn btn-success" [disabled]="!postText">Submit</button>
+        </div>
+    </form>
+</div>

@@ -7,7 +7,7 @@ import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.c
 import { LoginPageComponent } from './maincontentdisplay/account-components/login-page/login-page.component';
 import { RegisterPageComponent } from './maincontentdisplay/account-components/register-page/register-page.component';
 import { ProfilePageComponent } from './maincontentdisplay/account-components/profile-page/profile-page.component';
-import { ForumsPageComponent } from './maincontentdisplay/forums-page/forums-page.component';
+import { ForumsMainComponent } from './maincontentdisplay/forums-components/forums-main/forums-main.component';
 
 import {LoggedInGuard} from 'ngx-auth-firebaseui';
 
@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'login-page', component : LoginPageComponent},
   {path: 'register-page', component : RegisterPageComponent},
   {path: 'profile-page', component : ProfilePageComponent},
-  {path: 'forums-page', component : ForumsPageComponent, canActivate: [LoggedInGuard]}
+  {path: 'forums-page', component : ForumsMainComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({

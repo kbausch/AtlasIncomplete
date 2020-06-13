@@ -4,16 +4,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LandingPageComponent } from './maincontentdisplay/landing-page/landing-page.component';
 import { MainnavPageComponent } from './maincontentdisplay/mainnav-page/mainnav-page.component';
 import { TopNavbarComponent } from './top-navbar/top-navbar.component';
 import { CharacterPageComponent } from './maincontentdisplay/character-page/character-page.component';
 import { AboutPageComponent } from './maincontentdisplay/about-page/about-page.component';
+
 import { LoginPageComponent } from './maincontentdisplay/account-components/login-page/login-page.component';
 import { RegisterPageComponent } from './maincontentdisplay/account-components/register-page/register-page.component';
 import { ProfilePageComponent } from './maincontentdisplay/account-components/profile-page/profile-page.component';
-import { ForumsPageComponent } from './maincontentdisplay/forums-page/forums-page.component';
+
+import { ForumsPageComponent } from './maincontentdisplay/forums-components/forums-page/forums-page.component';
+import { ForumsMainComponent } from './maincontentdisplay/forums-components/forums-main/forums-main.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -31,9 +35,11 @@ import { environment } from '../environments/environment';
     LoginPageComponent,
     RegisterPageComponent,
     ProfilePageComponent,
-    ForumsPageComponent
+    ForumsPageComponent,
+    ForumsMainComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
