@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ForumsMainComponent implements OnInit {
 
-  chosenThread= 'Test Thread';
+  chosenThread= 'Rules';
   threadList:any;
 
   constructor(private dataretriever: DataRetrieverService) { }
