@@ -18,6 +18,7 @@ export class ForumsPageComponent implements OnChanges {
   private user$: Observable<firebase.User | null>;
   posts: Observable<any>;
   postText: string;
+  closed: boolean;
 
   constructor(public afa: AngularFireAuth, public afd: AngularFireDatabase) { }
 
@@ -26,9 +27,13 @@ export class ForumsPageComponent implements OnChanges {
     this.user$.subscribe((user: firebase.User) => {
       this.user = user;
     });
+    this.closed = false;
     this.posts = this.afd.list('/posts/' + this.thread).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
+          if (a.key === 'closed') {
+            this.closed = true;
+          }
           return {
             key: a.key,
             content: a.payload.toJSON()

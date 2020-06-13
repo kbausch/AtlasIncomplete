@@ -5,12 +5,12 @@
         </div>
     </div>
     <div class="mt-2">
-        <div class="row mb-5 ml-1 justify-content-center" *ngFor="let post of posts | async">
-            <div class="text-right">
-                <img [src]="post.content.authorPic" class="rounded" style="max-width:50px;"
+        <div class="row ml-1 justify-content-center" *ngFor="let post of posts | async">
+            <div class="text-right mb-5" *ngIf="post.key !== 'closed'">
+                <img [src]="post.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
                     [title]="post.content.author" [alt]="post.content.author">
             </div>
-            <div class="col-12 col-md-11">
+            <div class="col-12 col-md-11 mb-5" *ngIf="post.key !== 'closed'; else loading">
                 <div class="card border-0">
                     <div class="card-body rounded-0 p-2 oldscript d-flex justify-content-between align-items-center">
                         <h5 class="font-weight-bolder align-middle">{{post.content.title}}</h5>
@@ -21,17 +21,21 @@
                         </button>
                     </div>
                     <div class="card-title p-3 oldscript rounded-bottom">
-                        <p>{{post.content.body}}</p>
+                        <p style="white-space: pre-line">{{post.content.body}}</p>
                     </div>
                 </div>
             </div>
+            <ng-template class="col-12 col-md-11" #loading>
+                <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">This thread has been closed by a moderator</div>
+            </ng-template>
         </div>
     </div>
-    <form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm">
+    <form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm" *ngIf="!closed">
         <div class="card col-12 p-3 form-group">
             <!--<img [src]="user.photoURL" class="rounded" style="max-width:50px;" [title]="user.displayName" [alt]="user.displayName">-->
-            <input type="text" class="form-control" id="text" placeholder="Write a post here..." [(ngModel)]="postText"
-                name="text">
+            <textarea type="text" class="form-control" id="text" placeholder="Write a post here..."
+                [(ngModel)]="postText" name="text" maxlength="2000" rows="3">
+            </textarea>
             <button type="submit" class=" mt-1 btn btn-success" [disabled]="!postText">Submit</button>
         </div>
     </form>
