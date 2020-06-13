@@ -20,13 +20,14 @@ export class ForumsPageComponent implements OnChanges {
   postText: string;
   closed: boolean;
 
-  constructor(public afa: AngularFireAuth, public afd: AngularFireDatabase) { }
-
-  ngOnChanges(): void {
+  constructor(public afa: AngularFireAuth, public afd: AngularFireDatabase) {
     this.user$ = this.afa.user;
     this.user$.subscribe((user: firebase.User) => {
       this.user = user;
     });
+  }
+
+  ngOnChanges(): void {
     this.closed = false;
     this.posts = this.afd.list('/posts/' + this.thread).snapshotChanges().pipe(
       map(actions => {

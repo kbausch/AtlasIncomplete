@@ -33,7 +33,7 @@ export class TopNavbarComponent implements OnInit {
   }
 
   signOut(){
-    this.route.navigateByUrl('/');
+    this.route.navigateByUrl('');
   }
 
 }
