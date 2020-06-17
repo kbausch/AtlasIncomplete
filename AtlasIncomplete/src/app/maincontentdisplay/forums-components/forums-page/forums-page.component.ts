@@ -73,4 +73,29 @@ export class ForumsPageComponent implements OnChanges {
     return this.database.ref().child('/user-posts/' + this.user.uid + '/' + this.thread + '/' + postKey).remove();
   }
 
+  addStar(post: any) {
+    let updates = {};
+    if (post.content.starVoters !== undefined) {
+      if (Object.values(post.content.starVoters).indexOf(this.user.uid) > -1) {
+        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount-1;
+        updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount-1;
+        updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
+        updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
+        return this.database.ref().update(updates);
+      } else {
+        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+        updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+        updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
+        updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
+        return this.database.ref().update(updates);
+
+      }
+    } else {
+      updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+      updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+      updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
+      updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
+      return this.database.ref().update(updates);
+    }
+  }
 }

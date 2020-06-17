@@ -20,19 +20,25 @@
                                 src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
                         </button>
                     </div>
-                    <div class="card-title p-3 oldscript rounded-bottom">
+                    <div class="card-title p-3 mb-0 oldscript rounded-bottom">
                         <p style="white-space: pre-line">{{post.content.body}}</p>
+                        <button title="Star" class="p-1 btn btn-warning d-flex justify-content-center"
+                            (click)="addStar(post)">
+                            <img style="max-width:25px; max-height:25px;"
+                                src="https://lh3.googleusercontent.com/proxy/eiQOBk6FA8nS4DjQ-w2EZbrgSCpXGszJ71Vl9PnUfLjJIgQfNkL0mPPx0F-UnTBvYRUYW9Dk6-m_GKtURTzWOy1ATT3hB3uSIX7-yYrxsjgusslScpa-QOcwHO7uN50mgbgqmJPNZ_fElHA2whcUUlZiWw" />
+                        </button>
+                        <b>Stars:</b> {{post.content.starCount}}
                     </div>
                 </div>
             </div>
             <ng-template class="col-12 col-md-11" #loading>
-                <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">This thread has been closed by a moderator</div>
+                <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">This thread has been closed by a
+                    moderator</div>
             </ng-template>
         </div>
     </div>
     <form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm" *ngIf="!closed">
         <div class="card col-12 p-3 form-group">
-            <!--<img [src]="user.photoURL" class="rounded" style="max-width:50px;" [title]="user.displayName" [alt]="user.displayName">-->
             <textarea type="text" class="form-control" id="text" placeholder="Write a post here..."
                 [(ngModel)]="postText" name="text" maxlength="2000" rows="3">
             </textarea>
