@@ -19,6 +19,8 @@ export class ForumsPageComponent implements OnChanges {
   posts: Observable<any>;
   postText: string;
   closed: boolean;
+  postNum: number;
+  page = 1;
 
   constructor(public afa: AngularFireAuth, public afd: AngularFireDatabase) {
     this.user$ = this.afa.user;
@@ -29,6 +31,7 @@ export class ForumsPageComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.closed = false;
+    this.postNum = 0;
     this.posts = this.afd.list('/posts/' + this.thread).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -41,6 +44,7 @@ export class ForumsPageComponent implements OnChanges {
           }
         });
       }));
+    this.posts.subscribe(result => {this.postNum = result.length;});
   }
 
   writeNewPost() {
@@ -77,21 +81,21 @@ export class ForumsPageComponent implements OnChanges {
     let updates = {};
     if (post.content.starVoters !== undefined) {
       if (Object.values(post.content.starVoters).indexOf(this.user.uid) > -1) {
-        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount-1;
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount-1;
+        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount - 1;
+        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount - 1;
         updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
         updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
         return this.database.ref().update(updates);
       } else {
-        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
+        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
         updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
         updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
         return this.database.ref().update(updates);
       }
     } else {
-      updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
-      updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount+1;
+      updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
+      updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
       updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
       updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
       return this.database.ref().update(updates);

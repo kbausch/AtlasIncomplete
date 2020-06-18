@@ -5,12 +5,12 @@
         </div>
     </div>
     <div class="mt-2">
-        <div class="row ml-1 justify-content-center" *ngFor="let post of posts | async">
+        <div class="row ml-1 justify-content-center" *ngFor="let post of posts | async | slice: (page-1) * 10 : (page-1) * 10 + 10">
             <div class="text-right" *ngIf="post.key !== 'closed'">
                 <img [src]="post.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
                     [title]="post.content.author" [alt]="post.content.author">
             </div>
-            <div class="col-12 col-md-11 mb-5" *ngIf="post.key !== 'closed'; else loading">
+            <div class="col-12 col-md-11 mb-5" *ngIf="post.key !== 'closed'; else closed">
                 <div class="card border-0">
                     <div class="card-body rounded-0 p-2 oldscript d-flex justify-content-between align-items-center">
                         <h5 class="font-weight-bolder align-middle">{{post.content.title}}</h5>
@@ -25,13 +25,13 @@
                         <button title="Star" class="p-1 btn btn-warning d-flex justify-content-center"
                             (click)="addStar(post)">
                             <img style="max-width:25px; max-height:25px;"
-                                src="https://lh3.googleusercontent.com/proxy/eiQOBk6FA8nS4DjQ-w2EZbrgSCpXGszJ71Vl9PnUfLjJIgQfNkL0mPPx0F-UnTBvYRUYW9Dk6-m_GKtURTzWOy1ATT3hB3uSIX7-yYrxsjgusslScpa-QOcwHO7uN50mgbgqmJPNZ_fElHA2whcUUlZiWw" />
+                                src="https://lh3.googleusercontent.com/proxy/HLtytk2N2n3ksX2uM2JStNBRhdVG05fJj7JWhjRo7P8OWfT7U4FmD7aV002nauZElnrSlRstwvWEGpYcwr72J1hC" />
                         </button>
                         <b>Stars:</b> {{post.content.starCount}}
                     </div>
                 </div>
             </div>
-            <ng-template class="col-12 col-md-11" #loading>
+            <ng-template class="col-12 col-md-11" #closed>
                 <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">This thread has been closed by a
                     moderator</div>
             </ng-template>
@@ -45,4 +45,5 @@
             <button type="submit" class=" mt-1 btn btn-success" [disabled]="!postText">Submit</button>
         </div>
     </form>
+    <ngb-pagination class="d-flex mt-2 justify-content-end" [collectionSize]="postNum" [(page)]="page" ></ngb-pagination>
 </div>
