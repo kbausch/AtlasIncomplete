@@ -1,49 +1,21 @@
-<div class="d-flex flex-column bd-highlight rounded-lg bg-dark p-3 mb-3">
+<div class="d-flex flex-column bd-highlight rounded-lg bg-dark p-3 mb-2">
     <div class="row m-1 justify-content-center">
         <div class="col-12 bg-info rounded-lg">
-            <h2 class="text-center"><u>{{thread}}</u></h2>
+            <h2 class="text-center"><u>{{threadMain}}</u></h2>
         </div>
     </div>
-    <div class="mt-2">
-        <div class="row ml-1 justify-content-center" *ngFor="let post of posts | async | slice: (page-1) * 10 : (page-1) * 10 + 10">
-            <div class="text-right" *ngIf="post.key !== 'closed'">
-                <img [src]="post.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
-                    [title]="post.content.author" [alt]="post.content.author">
-            </div>
-            <div class="col-12 col-md-11 mb-5" *ngIf="post.key !== 'closed'; else closed">
-                <div class="card border-0">
-                    <div class="card-body rounded-0 p-2 oldscript d-flex justify-content-between align-items-center">
-                        <h5 class="font-weight-bolder align-middle">{{post.content.title}}</h5>
-                        <button title="Delete Post" class="p-1 btn btn-danger justify-content-center"
-                            *ngIf="post.content.uid === user.uid" (click)="deletePost(post.key)">
-                            <img style="max-width:25px;"
-                                src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
-                        </button>
-                    </div>
-                    <div class="card-title p-3 mb-0 oldscript rounded-bottom">
-                        <p style="white-space: pre-line">{{post.content.body}}</p>
-                        <button title="Star" class="p-1 btn btn-warning d-flex justify-content-center"
-                            (click)="addStar(post)">
-                            <img style="max-width:25px; max-height:25px;"
-                                src="https://lh3.googleusercontent.com/proxy/HLtytk2N2n3ksX2uM2JStNBRhdVG05fJj7JWhjRo7P8OWfT7U4FmD7aV002nauZElnrSlRstwvWEGpYcwr72J1hC" />
-                        </button>
-                        <b>Stars:</b> {{post.content.starCount}}
-                    </div>
-                </div>
-            </div>
-            <ng-template class="col-12 col-md-11" #closed>
-                <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">This thread has been closed by a
-                    moderator</div>
-            </ng-template>
-        </div>
-    </div>
-    <form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm" *ngIf="!closed">
+    <app-posts-page (postNum)="postNum = $event" [user]="user" [page]="page" [thread]="threadMain" *ngIf="posts; else subThreadDisplay"></app-posts-page>
+    <ng-template class="col-12" #subThreadDisplay>
+        <button type="button" class="btn btn-secondary w-100 mt-2" *ngFor="let subThread of subThreads | async | slice: (page-1) * 10 : (page-1) * 10 + 10"
+            (click)="selectSubThread(subThread)">{{subThread}}</button>
+    </ng-template>
+    <form class="row ml-1 mr-1 mt-4 justify-content-around" (ngSubmit)="createSubThread()" #subThreadForm="ngForm"
+        *ngIf="!posts">
         <div class="card col-12 p-3 form-group">
-            <textarea type="text" class="form-control" id="text" placeholder="Write a post here..."
-                [(ngModel)]="postText" name="text" maxlength="2000" rows="3">
-            </textarea>
-            <button type="submit" class=" mt-1 btn btn-success" [disabled]="!postText">Submit</button>
+            <input type="text" class="form-control" id="text" placeholder="Create a new thread here..."
+                [(ngModel)]="subThreadName" name="text" maxlength="100"/>
+            <button type="submit" class=" mt-1 btn btn-success" [disabled]="!subThreadName">Submit</button>
         </div>
     </form>
-    <ngb-pagination class="d-flex mt-2 justify-content-end" [collectionSize]="postNum" [(page)]="page" ></ngb-pagination>
+    <ngb-pagination class="d-flex mt-2 justify-content-end" [collectionSize]="postNum" [(page)]="page"></ngb-pagination>
 </div>

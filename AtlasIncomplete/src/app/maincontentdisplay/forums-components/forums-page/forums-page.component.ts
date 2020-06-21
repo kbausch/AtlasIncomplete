@@ -1,9 +1,7 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
-import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { DataRetrieverService } from '../../../shared/services/data-retriever.service';
 
 @Component({
   selector: 'app-forums-page',
@@ -12,93 +10,51 @@ import { map } from 'rxjs/operators';
 })
 export class ForumsPageComponent implements OnChanges {
 
-  @Input('thread') thread: string;
+  @Input('thread') threadMain : string;
   user: firebase.User;
-  private database = firebase.database();
-  private user$: Observable<firebase.User | null>;
-  posts: Observable<any>;
-  postText: string;
-  closed: boolean;
-  postNum: number;
-  page = 1;
+  posts: boolean;
+  subThreads: Observable<any>;
+  subThreadName: string;
 
-  constructor(public afa: AngularFireAuth, public afd: AngularFireDatabase) {
-    this.user$ = this.afa.user;
-    this.user$.subscribe((user: firebase.User) => {
+  //The numbers below are used for the pagination
+  postNum: number;
+  page: number = 1;
+
+  constructor(public afa: AngularFireAuth, private dataretriever: DataRetrieverService) {
+    this.afa.user.subscribe((user: firebase.User) => {
       this.user = user;
     });
   }
 
   ngOnChanges(): void {
-    this.closed = false;
+    console.log(this.threadMain);
     this.postNum = 0;
-    this.posts = this.afd.list('/posts/' + this.thread).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          if (a.key === 'closed') {
-            this.closed = true;
-          }
-          return {
-            key: a.key,
-            content: a.payload.toJSON()
-          }
-        });
-      }));
-    this.posts.subscribe(result => {this.postNum = result.length;});
+    this.posts = false;
+    this.subThreads = this.dataretriever.getSubThreadsNavRef(this.threadMain);
+    this.subThreads.subscribe(result => { if (this.posts === false) { this.postNum = result.length; } });
   }
 
-  writeNewPost() {
+  selectSubThread(subThread: string) {
+    this.threadMain += '/' + subThread;
+    this.posts = true;
+  }
+
+  createSubThread(): Promise<any> {
     // A post entry.
     let postData = {
       author: this.user.displayName,
       uid: this.user.uid,
-      body: this.postText,
-      title: this.user.displayName,
-      starCount: 0,
       authorPic: this.user.photoURL
     };
 
-    // Reset the post.
-    this.postText = undefined;
-
-    // Get a key for a new Post.
-    let newPostKey = this.database.ref().child('posts').push().key;
-
     // Write the new post's data simultaneously in the posts list and the user's post list.
     let updates = {};
-    updates['/posts/' + this.thread + '/' + newPostKey] = postData;
-    updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + newPostKey] = postData;
+    updates['/posts/' + this.threadMain + '/' + this.subThreadName] = postData;
+    updates['/user-posts/' + this.user.uid + '/' + this.threadMain + '/' + this.subThreadName] = postData;
 
-    return this.database.ref().update(updates);
-  }
+    // Reset the post.
+    this.subThreadName = undefined;
 
-  deletePost(postKey: string) {
-    this.database.ref().child('/posts/' + this.thread + '/' + postKey).remove();
-    return this.database.ref().child('/user-posts/' + this.user.uid + '/' + this.thread + '/' + postKey).remove();
-  }
-
-  addStar(post: any) {
-    let updates = {};
-    if (post.content.starVoters !== undefined) {
-      if (Object.values(post.content.starVoters).indexOf(this.user.uid) > -1) {
-        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount - 1;
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount - 1;
-        updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = Object.values(post.content.starVoters).filter(e => e !== this.user.uid);
-        return this.database.ref().update(updates);
-      } else {
-        updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
-        updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
-        updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = post.content.starVoters.push(this.user.uid);
-        return this.database.ref().update(updates);
-      }
-    } else {
-      updates['/posts/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
-      updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starCount'] = post.content.starCount + 1;
-      updates['/posts/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
-      updates['/user-posts/' + post.content.uid + '/' + this.thread + '/' + post.key + '/starVoters'] = [this.user.uid];
-      return this.database.ref().update(updates);
-    }
+    return this.dataretriever.updateDB(updates);
   }
 }

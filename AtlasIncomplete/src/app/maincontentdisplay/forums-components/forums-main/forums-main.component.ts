@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class ForumsMainComponent implements OnInit {
 
-  chosenThread= 'Rules';
-  threadList:any;
+  chosenThread = 'Rules';
+  threadList: any;
 
   constructor(private dataretriever: DataRetrieverService) { }
 
@@ -24,6 +24,14 @@ export class ForumsMainComponent implements OnInit {
     ).subscribe(threads => {
       this.threadList = threads;
     });
+  }
+
+  choseThread(thread: string) {
+    if (this.chosenThread === thread) {
+      this.chosenThread = '/' + thread;
+    } else {
+      this.chosenThread = thread;
+    }
   }
 
 }

@@ -2,8 +2,11 @@
     <div class="col-6" style="background-image: url('https://nataliedelgadomusic.files.wordpress.com/2012/12/scroll-background.png?w=745');
     background-position: center;
     background-size: cover;">
+        <ngb-alert [type]="'info'" [dismissible]="false">
+            <strong>Warning!</strong> You must be signed in and have your email address confirmed to use the forums.
+        </ngb-alert>
         <ngx-auth-firebaseui-login providers="['google']"
-            logoUrl="https://cdn.discordapp.com/attachments/467185767593148418/715769355111235615/logo.png"
+            logoUrl="https://media.discordapp.net/attachments/467185767593148418/723315672649695312/Atlas_Incomplete_Icon_2.png"
             (onSuccess)="printUser($event)" (onError)="printError($event)" (onCreateAccountRequested)="createAccount()">
         </ngx-auth-firebaseui-login>
     </div>

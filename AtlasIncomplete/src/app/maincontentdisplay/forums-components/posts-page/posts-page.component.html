@@ -1,0 +1,50 @@
+<div class="mt-2">
+    <div class="row ml-1 justify-content-center"
+        *ngFor="let post of posts | async | slice: (page-1) * 10 : (page-1) * 10 + 10">
+        <div class="text-right" *ngIf="testKey(post.key)">
+            <img [src]="post.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
+                [title]="post.content.author" [alt]="post.content.author">
+        </div>
+        <div class="col-12 col-md-11 mb-3" *ngIf="post.key !== 'closed'; else closed">
+            <div class="card border-0" *ngIf="testKey(post.key)">
+                <div class="card-body rounded-0 p-2 oldscript d-flex align-items-center">
+                    <div class="mr-auto mb-auto">
+                        <h5 class="mb-0">{{post.content.title}}</h5>
+                        <sub class="text-muted">{{post.content.date | date:'short'}}</sub>
+                    </div>
+                    <button title="Report Post" class="p-1 btn btn-success justify-content-center mr-1" (click)="flagPost(post)">
+                        <img style="max-width:25px;"
+                            src="https://simpleicon.com/wp-content/uploads/flag.png" />
+                    </button>
+                    <button title="Delete Post" class="p-1 btn btn-danger justify-content-center"
+                        *ngIf="post.content.uid === user.uid" (click)="deletePost(post.key)">
+                        <img style="max-width:25px;"
+                            src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
+                    </button>
+                </div>
+                <div class="card-title pl-3 pr-3 pt-2 pb-2 mb-0 oldscript rounded-bottom">
+                    <p style="white-space: pre-line">{{post.content.body}}</p>
+                    <button title="Star" class="p-1 btn btn-warning d-flex justify-content-center"
+                        (click)="addStar(post)">
+                        <img style="max-width:25px; max-height:25px;"
+                            src="https://media.discordapp.net/attachments/467185767593148418/723675555072966751/0cf3954624b73871ee4f191794deeca8.png" />
+                    </button>
+                    <b>Stars:</b> {{post.content.starCount}}
+                </div>
+            </div>
+        </div>
+        <ng-template #closed>
+            <div class="p-3 mr-3 w-100 bg-danger text-white text-center rounded">
+                This thread has been closed by a moderator
+            </div>
+        </ng-template>
+    </div>
+</div>
+<form class="row m-1 justify-content-around mt-auto" (ngSubmit)="writeNewPost()" #postForm="ngForm" *ngIf="!closed">
+    <div class="card col-12 p-3 form-group">
+        <textarea type="text" class="form-control" id="text" placeholder="Write a post here..." [(ngModel)]="postText"
+            name="text" maxlength="2000" rows="3">
+        </textarea>
+        <button type="submit" class=" mt-1 btn btn-success" [disabled]="!postText">Submit</button>
+    </div>
+</form>
