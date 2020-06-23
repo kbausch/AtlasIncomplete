@@ -24,6 +24,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { environment } from '../environments/environment';
 import { PostsPageComponent } from './maincontentdisplay/forums-components/posts-page/posts-page.component';
+import { ProfilePicPageComponent } from './maincontentdisplay/account-components/profile-pic-page/profile-pic-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PostsPageComponent } from './maincontentdisplay/forums-components/posts
     ProfilePageComponent,
     ForumsPageComponent,
     ForumsMainComponent,
-    PostsPageComponent
+    PostsPageComponent,
+    ProfilePicPageComponent
   ],
   imports: [
     FormsModule,

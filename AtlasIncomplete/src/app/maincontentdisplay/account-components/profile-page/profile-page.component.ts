@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile-page',
@@ -8,7 +9,14 @@ import {Router} from '@angular/router';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  profilePicker = false;
+  user: firebase.User
+
+  constructor(private route: Router, private afa: AngularFireAuth) { 
+    this.afa.user.subscribe((user: firebase.User) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
   }

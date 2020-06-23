@@ -1,0 +1,14 @@
+<div class="row text-center justify-content-center">
+    <div class="card border-dark col-9 col-sm-5 col-md-3 col-lg-2 m-3" *ngFor="let character of otherCharacterList">
+        <img [src]="character.image" class="card-img-top w-100 mt-auto" [alt]="character.title">
+        <div class="card-body p-2" style="max-height: max-content;">
+            <h3 class="card-text">{{character.title}}</h3>
+        </div>
+    </div>
+    <div class="card border-dark col-9 col-sm-5 col-md-3 col-lg-2 m-3" *ngFor="let character of mainCharacterList">
+        <img [src]="character.image" class="card-img-top w-100 mt-auto" [alt]="character.title">
+        <div class="card-body p-2" style="max-height: max-content;">
+            <h3 class="card-text">{{character.title}}</h3>
+        </div>
+    </div>
+</div>

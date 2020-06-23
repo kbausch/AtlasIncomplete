@@ -1,5 +1,26 @@
-<div class="row text-center justify-content-around">
-    <div class="col-6 m-5">
+<div class="row text-center justify-content-center oldscript">
+    <div class="col-11 col-sm-3 mt-5" *ngIf="!profilePicker && user">
+        <div class="card border-0 h-100">
+            <h5 class="m-1"><u>Adventurer Avatar</u></h5>
+            <div class="align-self-center" style="height:90%;">
+                <img [src]="user.photoURL" class="card-img-top w-100"/>
+            </div>
+            <div class="card-body text-center">
+                <button class="btn btn-success card-text rounded mb-3 w-100" (click)="profilePicker = !profilePicker">Select Another Adventurer</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-11 col-sm-5 mt-5" *ngIf="!profilePicker; else profilePic">
         <ngx-auth-firebaseui-user (onSignOut)="signOut()" (onAccountDeleted)="signOut()"></ngx-auth-firebaseui-user>
+    </div>
+    <ng-template class="col-11 mt-5" #profilePic>
+        <button class="btn btn-success rounded m-3" (click)="profilePicker = !profilePicker">Go Back</button>
+        <app-profile-pic-page [user]="user"></app-profile-pic-page>
+    </ng-template>
+    <div class="col-11 col-sm-3 mt-5" *ngIf="!profilePicker && user">
+        <div class="card border-0 h-100">
+            <h5 class="m-1"><u>Leveling System Coming soon!</u></h5>
+            <div class="align-self-center" style="height:90%;"></div>
+        </div>
     </div>
 </div>
