@@ -28,7 +28,7 @@ export const fader =
                     opacity: 1,
                 }),
                 animate('600ms ease', style({ opacity: 0, transform: 'scale(1.5) translateY(0)' }))
-            ],{ optional: true }),
+            ], { optional: true }),
             query(':enter', [
                 style({
                     position: 'absolute',

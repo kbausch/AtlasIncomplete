@@ -26,7 +26,7 @@ export class PostsPageComponent implements OnChanges {
   }
 
   testKey(key: string): boolean {
-    if(key === 'closed'){
+    if (key === 'closed') {
       this.closed = true;
     }
     return (key !== 'closed') && (key !== 'author') && (key !== 'authorPic') && (key !== 'uid');
@@ -34,7 +34,7 @@ export class PostsPageComponent implements OnChanges {
 
   writeNewPost() {
     // A post entry.
-    let postData = {
+    const postData = {
       author: this.user.displayName,
       uid: this.user.uid,
       body: this.postText,
@@ -48,10 +48,10 @@ export class PostsPageComponent implements OnChanges {
     this.postText = undefined;
 
     // Get a key for a new Post.
-    let newPostKey = this.dataretriever.getPostKey();
+    const newPostKey = this.dataretriever.getPostKey();
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
-    let updates = {};
+    const updates = {};
     updates['/posts/' + this.threadMain + '/' + newPostKey] = postData;
     updates['/user-posts/' + this.user.uid + '/' + this.threadMain + '/' + newPostKey] = postData;
 
@@ -63,12 +63,12 @@ export class PostsPageComponent implements OnChanges {
     return this.dataretriever.removeDB('/user-posts/' + this.user.uid + '/' + this.threadMain + '/' + postKey);
   }
 
-  flagPost(post: Observable<any>){
+  flagPost(post: Observable<any>) {
     console.log(post);
   }
 
   addStar(post: any) {
-    let updates = {};
+    const updates = {};
     if (post.content.starVoters !== undefined) {
       if (Object.values(post.content.starVoters).indexOf(this.user.uid) > -1) {
         updates['/posts/' + this.threadMain + '/' + post.key + '/starCount'] = post.content.starCount - 1;

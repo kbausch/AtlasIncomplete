@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CharactersModel } from '../models/characters-model';
 import { NavigationModel } from '../models/navigation-model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import {AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class DataRetrieverService {
     });
   }
 
-  getUser() : firebase.User{
+  getUser(): firebase.User {
     return this.user;
   }
 
@@ -56,7 +56,7 @@ export class DataRetrieverService {
           return {
             key: a.key,
             content: a.payload.val()
-          }
+          };
         });
       }));
   }
@@ -74,7 +74,7 @@ export class DataRetrieverService {
     return this.database.ref().child('posts').push().key;
   }
 
-  updateDB(updates: Object): Promise<any> {
+  updateDB(updates: object): Promise<any> {
     return this.database.ref().update(updates);
   }
 

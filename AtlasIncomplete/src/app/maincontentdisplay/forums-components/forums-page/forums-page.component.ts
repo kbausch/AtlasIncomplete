@@ -9,15 +9,15 @@ import { DataRetrieverService } from '../../../shared/services/data-retriever.se
 })
 export class ForumsPageComponent implements OnChanges {
 
-  @Input('thread') threadMain : string;
+  @Input('thread') thread: string;
   user: firebase.User;
   posts: boolean;
   subThreads: Observable<any>;
   subThreadName: string;
 
-  //The numbers below are used for the pagination
+  // The numbers below are used for the pagination
   postNum: number;
-  page: number = 1;
+  page = 1;
 
   constructor(private dataretriever: DataRetrieverService) {
     this.user = this.dataretriever.getUser();
@@ -26,27 +26,27 @@ export class ForumsPageComponent implements OnChanges {
   ngOnChanges(): void {
     this.postNum = 0;
     this.posts = false;
-    this.subThreads = this.dataretriever.getSubThreadsNavRef(this.threadMain);
+    this.subThreads = this.dataretriever.getSubThreadsNavRef(this.thread);
     this.subThreads.subscribe(result => { if (this.posts === false) { this.postNum = result.length; } });
   }
 
   selectSubThread(subThread: string) {
-    this.threadMain += '/' + subThread;
+    this.thread += '/' + subThread;
     this.posts = true;
   }
 
   createSubThread(): Promise<any> {
     // A post entry.
-    let postData = {
+    const postData = {
       author: this.user.displayName,
       uid: this.user.uid,
       authorPic: this.user.photoURL
     };
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
-    let updates = {};
-    updates['/posts/' + this.threadMain + '/' + this.subThreadName] = postData;
-    updates['/user-posts/' + this.user.uid + '/' + this.threadMain + '/' + this.subThreadName] = postData;
+    const updates = {};
+    updates['/posts/' + this.thread + '/' + this.subThreadName] = postData;
+    updates['/user-posts/' + this.user.uid + '/' + this.thread + '/' + this.subThreadName] = postData;
 
     // Reset the post.
     this.subThreadName = undefined;
