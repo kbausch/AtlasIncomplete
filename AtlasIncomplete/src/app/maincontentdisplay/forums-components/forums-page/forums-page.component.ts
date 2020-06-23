@@ -1,5 +1,4 @@
 import { Component, OnChanges, Input } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { DataRetrieverService } from '../../../shared/services/data-retriever.service';
 
@@ -20,14 +19,11 @@ export class ForumsPageComponent implements OnChanges {
   postNum: number;
   page: number = 1;
 
-  constructor(public afa: AngularFireAuth, private dataretriever: DataRetrieverService) {
-    this.afa.user.subscribe((user: firebase.User) => {
-      this.user = user;
-    });
+  constructor(private dataretriever: DataRetrieverService) {
+    this.user = this.dataretriever.getUser();
   }
 
   ngOnChanges(): void {
-    console.log(this.threadMain);
     this.postNum = 0;
     this.posts = false;
     this.subThreads = this.dataretriever.getSubThreadsNavRef(this.threadMain);

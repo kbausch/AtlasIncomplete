@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -14,15 +14,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   printUser(event) {
-    console.log("Success");
     this.route.navigateByUrl('/');
   }
 
-  printError(event) {
-    console.log("Failure");
-  }
-
-  createAccount(){
+  createAccount(): void {
     this.route.navigateByUrl('/register-page');
   }
 
