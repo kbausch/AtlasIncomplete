@@ -1,10 +1,10 @@
 <div class="d-flex flex-column bd-highlight rounded-lg bg-dark p-3 mb-2">
     <div class="row m-1 justify-content-center">
         <div class="col-12 bg-info rounded-lg">
-            <h2 class="text-center"><u>{{threadMain}}</u></h2>
+            <h2 class="text-center"><u>{{thread}}</u></h2>
         </div>
     </div>
-    <app-posts-page (postNum)="postNum = $event" [user]="user" [page]="page" [thread]="threadMain" *ngIf="posts; else subThreadDisplay"></app-posts-page>
+    <app-posts-page (postNum)="postNum = $event" [user]="user" [page]="page" [thread]="thread" *ngIf="posts; else subThreadDisplay"></app-posts-page>
     <ng-template class="col-12" #subThreadDisplay>
         <button type="button" class="btn btn-secondary w-100 mt-2" *ngFor="let subThread of subThreads | async | slice: (page-1) * 10 : (page-1) * 10 + 10"
             (click)="selectSubThread(subThread)">{{subThread}}</button>
