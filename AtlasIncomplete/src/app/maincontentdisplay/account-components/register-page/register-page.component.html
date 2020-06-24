@@ -7,7 +7,7 @@
         </ngb-alert>
         <ngx-auth-firebaseui-register
             logoUrl="https://media.discordapp.net/attachments/467185767593148418/723316119523295825/Atlas_Incomplete_Icon_2.png"
-            (onSuccess)="registerSuccess()" (onLoginRequested)="logIn()">
+            (onSuccess)="registerSuccess($event)" (onLoginRequested)="logIn()">
         </ngx-auth-firebaseui-register>
     </div>
 </div>

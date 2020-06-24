@@ -10,12 +10,12 @@ import { CharactersModel } from 'src/app/shared/models/characters-model';
 })
 export class ProfilePicPageComponent implements OnInit {
 
-  @Input('user') user : firebase.User;
+  @Input('user') user: firebase.User;
   mainCharacterList: CharactersModel[];
   otherCharacterList: any[];
 
 
-  constructor(private dataretriever : DataRetrieverService) { }
+  constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
     this.dataretriever.getMainCharactersList().snapshotChanges().pipe(
@@ -35,7 +35,13 @@ export class ProfilePicPageComponent implements OnInit {
       )
     ).subscribe(characters => {
       this.otherCharacterList = characters;
-    });;
+    });
+  }
+
+  updateProfPic(url: string) {
+    this.user.updateProfile(
+      { photoURL: url }
+    );
   }
 
 }
