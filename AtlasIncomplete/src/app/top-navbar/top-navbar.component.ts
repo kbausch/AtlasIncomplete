@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {LinkMenuItem} from 'ngx-auth-firebaseui';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {User} from 'firebase';
-import {Observable} from 'rxjs';
+import { Router } from '@angular/router';
+import { LinkMenuItem } from 'ngx-auth-firebaseui';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-top-navbar',
@@ -16,11 +16,11 @@ export class TopNavbarComponent implements OnInit {
   user: User;
   private user$: Observable<User | null>;
 
-  constructor(public afa: AngularFireAuth, private route: Router) {}
+  constructor(private afa: AngularFireAuth, private route: Router) { }
 
   ngOnInit(): void {
     this.links = [
-      {icon: 'home', text: 'Profile', callback: this.goProfile.bind(this)}
+      { icon: 'home', text: 'Profile', callback: this.goProfile.bind(this) }
     ];
     this.user$ = this.afa.user;
     this.user$.subscribe((user: User) => {
@@ -28,12 +28,12 @@ export class TopNavbarComponent implements OnInit {
     });
   }
 
-  private goProfile(){
+  private goProfile() {
     this.route.navigateByUrl('/profile-page');
   }
 
-  signOut(){
-    this.route.navigateByUrl('');
+  signOut() {
+    this.route.navigateByUrl('/');
   }
 
 }
