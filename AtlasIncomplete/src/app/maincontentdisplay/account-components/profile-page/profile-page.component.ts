@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -10,9 +10,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class ProfilePageComponent implements OnInit {
 
   profilePicker = false;
-  user: firebase.User
+  user: firebase.User;
 
-  constructor(private route: Router, private afa: AngularFireAuth) { 
+  constructor(private route: Router, private afa: AngularFireAuth) {
     this.afa.user.subscribe((user: firebase.User) => {
       this.user = user;
     });
@@ -21,7 +21,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signOut(){
+  signOut() {
     this.route.navigateByUrl('/');
   }
 }

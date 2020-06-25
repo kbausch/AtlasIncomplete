@@ -7,7 +7,7 @@
         </div>
         <div class="col-12 col-md-11 mb-3" *ngIf="post.key !== 'closed'; else closed">
             <div class="card border-0" *ngIf="testKey(post.key)">
-                <div class="card-body rounded-0 p-2 oldscript d-flex align-items-center">
+                <div class="card-body rounded-0 p-2 d-flex align-items-center">
                     <div class="mr-auto mb-auto">
                         <h5 class="mb-0">{{post.content.title}}</h5>
                         <sub class="text-muted">{{post.content.date | date:'short'}}</sub>
@@ -22,7 +22,7 @@
                             src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
                     </button>
                 </div>
-                <div class="card-title pl-3 pr-3 pt-2 pb-2 mb-0 oldscript rounded-bottom">
+                <div class="card-title pl-3 pr-3 pt-2 pb-2 mb-0 rounded-bottom">
                     <p style="white-space: pre-line">{{post.content.body}}</p>
                     <button title="Star" class="p-1 btn btn-warning d-flex justify-content-center"
                         (click)="addStar(post)">

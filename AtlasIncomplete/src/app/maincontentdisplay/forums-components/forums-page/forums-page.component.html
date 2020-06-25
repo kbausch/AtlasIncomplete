@@ -4,16 +4,30 @@
             <h2 class="text-center"><u>{{thread}}</u></h2>
         </div>
     </div>
-    <app-posts-page (postNum)="postNum = $event" [user]="user" [page]="page" [thread]="thread" *ngIf="posts; else subThreadDisplay"></app-posts-page>
+    <app-posts-page (postNum)="postNum = $event" [user]="user" [page]="page" [thread]="thread"
+        *ngIf="posts; else subThreadDisplay"></app-posts-page>
     <ng-template class="col-12" #subThreadDisplay>
-        <button type="button" class="btn btn-secondary w-100 mt-2" *ngFor="let subThread of subThreads | async | slice: (page-1) * 10 : (page-1) * 10 + 10"
-            (click)="selectSubThread(subThread)">{{subThread}}</button>
+        <div class="mt-2 d-flex justify-content-center" *ngFor="let subThread of subThreads | async | slice: (page-1) * 10 : (page-1) * 10 + 10">
+            <img [src]="subThread.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
+                [title]="subThread.content.author" [alt]="subThread.content.author">
+            <button type="button" class="btn btn-secondary col" (click)="selectSubThread(subThread.key)">
+                {{subThread.key}}
+            </button>
+            <button title="Delete Post" class="btn btn-danger justify-content-center"
+                *ngIf="subThread.content.uid === user.uid" (click)="deleteSubThread(subThread.key)">
+                <img style="max-width:25px;"
+                    src="https://webstockreview.net/images/garbage-clipart-road-clipart-18.png" />
+            </button>
+        </div>
     </ng-template>
     <form class="row ml-1 mr-1 mt-4 justify-content-around" (ngSubmit)="createSubThread()" #subThreadForm="ngForm"
         *ngIf="!posts">
+        <ngb-toast [header]="'Oops! Sorry...'" *ngIf="showToast" [delay]="7000" (hide)="showToast = false">
+            You are not allowed to make a thread with that exact name. (Try changing it a little)
+        </ngb-toast>
         <div class="card col-12 p-3 form-group">
             <input type="text" class="form-control" id="text" placeholder="Create a new thread here..."
-                [(ngModel)]="subThreadName" name="text" maxlength="100"/>
+                [(ngModel)]="subThreadName" name="text" maxlength="100" />
             <button type="submit" class=" mt-1 btn btn-success" [disabled]="!subThreadName">Submit</button>
         </div>
     </form>

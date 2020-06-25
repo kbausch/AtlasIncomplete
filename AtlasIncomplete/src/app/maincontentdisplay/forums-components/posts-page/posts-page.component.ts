@@ -21,8 +21,8 @@ export class PostsPageComponent implements OnChanges {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnChanges(): void {
-    this.posts = this.dataretriever.getPostsRef(this.threadMain);
-    this.posts.subscribe(result => { this.postNum.emit(result.length); });
+    this.posts = this.dataretriever.getThreadsRef(this.threadMain);
+    this.posts.subscribe(result => { this.postNum.emit(result.length - 3); });
   }
 
   testKey(key: string): boolean {
@@ -63,7 +63,7 @@ export class PostsPageComponent implements OnChanges {
     return this.dataretriever.removeDB('/user-posts/' + this.user.uid + '/' + this.threadMain + '/' + postKey);
   }
 
-  flagPost(post: Observable<any>) {
+  flagPost(post: object) {
     console.log(post);
   }
 

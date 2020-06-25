@@ -42,7 +42,7 @@ export class DataRetrieverService {
     return this.db.list('/posts');
   }
 
-  getPostsRef(thread: string): Observable<any> {
+  getThreadsRef(thread: string): Observable<any> {
     return this.db.list('/posts/' + thread).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -50,15 +50,6 @@ export class DataRetrieverService {
             key: a.key,
             content: a.payload.val()
           };
-        });
-      }));
-  }
-
-  getSubThreadsNavRef(thread: string): Observable<any> {
-    return this.db.list('/posts/' + thread).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          return a.key;
         });
       }));
   }
