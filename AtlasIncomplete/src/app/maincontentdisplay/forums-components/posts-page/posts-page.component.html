@@ -5,7 +5,7 @@
             <img [src]="post.content.authorPic" class="rounded" style="max-width:50px; max-height:50px;"
                 [title]="post.content.author" [alt]="post.content.author">
         </div>
-        <div class="col-12 col-md-11 mb-3" *ngIf="post.key !== 'closed'; else closed">
+        <div class="col-12 col-sm mb-3" *ngIf="post.key !== 'closed'; else closed">
             <div class="card border-0" *ngIf="testKey(post.key)">
                 <div class="card-body rounded-0 p-2 d-flex align-items-center">
                     <div class="mr-auto mb-auto">

@@ -4,8 +4,8 @@
             <h5 class="m-1"><u>Current Adventurer Avatar</u></h5>
             <img [src]="user.photoURL" class="card-img-top w-100 mt-auto rounded-top" />
             <div class="card-body">
-                <button class="btn btn-success card-text rounded w-100"
-                    (click)="profilePicker = !profilePicker">Select Another Adventurer</button>
+                <button class="btn btn-success card-text rounded w-100" (click)="profilePicker = !profilePicker">Select
+                    Another Adventurer</button>
             </div>
         </div>
     </div>
@@ -17,9 +17,16 @@
         <app-profile-pic-page [user]="user"></app-profile-pic-page>
     </ng-template>
     <div class="col-11 col-sm-3 mt-5" *ngIf="!profilePicker && user">
-        <div class="card border-0 h-100">
+        <div class="card border-0">
             <h5 class="m-1"><u>Leveling System Coming soon!</u></h5>
-            <div class="align-self-center" style="height:90%;"></div>
+            <img class="card-img-top w-100 mt-3" alt="Gold coins"
+                src="https://cdn.discordapp.com/attachments/467185767593148418/725822730687086702/coin-3462048_1280.png" />
+            <div class="card-body p-2">
+                <p class="text-warning card-text rounded">Gold Pieces: {{gold}}</p>
+                <div class="spinner-border text-warning" role="status" *ngIf="!gold">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -66,4 +66,15 @@ export class DataRetrieverService {
     return this.database.ref().child(path).remove();
   }
 
+  getUserDetails(user: string): Observable<any> {
+    return this.db.list('user-posts/' + user).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          if (a.key === 'gold') {
+            return a.payload.val();
+          }
+        });
+      }));
+  }
+
 }
