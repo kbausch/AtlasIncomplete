@@ -18,7 +18,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerSuccess(event: firebase.User) {
     event.updateProfile(
-      { photoURL: 'https://cdn.discordapp.com/attachments/467185767593148418/724806635188650074/unknown.png' }
+      { photoURL: 'https://cdn.discordapp.com/attachments/467185767593148418/725491929713999882/Character_Study.png' }
     ).finally(() =>
       this.route.navigateByUrl('/mainnav-page')
     );
@@ -26,6 +26,7 @@ export class RegisterPageComponent implements OnInit {
 
   logIn() {
     this.route.navigateByUrl('/login-page');
+    this.route.dispose();
   }
 
 }
