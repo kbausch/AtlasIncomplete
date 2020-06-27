@@ -15,9 +15,10 @@ export class ProfilePageComponent implements OnInit {
   user: firebase.User;
   gold: unknown;
   sub: Subscription;
+  userSub: Subscription;
 
   constructor(private route: Router, private afa: AngularFireAuth, private dataretriever: DataRetrieverService) {
-    this.afa.user.subscribe((user: firebase.User) => {
+    this.userSub = this.afa.user.subscribe((user: firebase.User) => {
       this.user = user;
       if (user !== null) {
         this.sub = this.dataretriever.getUserDetails(user.uid).subscribe(item => {
@@ -35,6 +36,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   signOut() {
+    this.userSub.unsubscribe();
+    this.sub.unsubscribe();
     this.route.navigateByUrl('/');
   }
 }
