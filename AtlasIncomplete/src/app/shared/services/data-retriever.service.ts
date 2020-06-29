@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CharactersModel } from '../models/characters-model';
 import { NavigationModel } from '../models/navigation-model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,12 +11,13 @@ import { map } from 'rxjs/operators';
 })
 export class DataRetrieverService {
 
-  private database = firebase.database();
+  private database: any;
   private mainNavRef: AngularFireList<NavigationModel> = null;
   closed: boolean;
 
   constructor(private db: AngularFireDatabase) {
     this.mainNavRef = db.list('/mainnavlink');
+    this.database = db.database;
   }
 
   getMainCharactersList(): AngularFireList<CharactersModel> {
