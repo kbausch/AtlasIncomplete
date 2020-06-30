@@ -18,22 +18,10 @@ export class ProfilePicPageComponent implements OnInit {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.dataretriever.getMainCharactersList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(characters => {
+    this.dataretriever.getMainCharactersList().valueChanges().subscribe(characters => {
       this.mainCharacterList = characters;
     });
-    this.dataretriever.getOtherCharactersList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(characters => {
+    this.dataretriever.getOtherCharactersList().valueChanges().subscribe(characters => {
       this.otherCharacterList = characters;
     });
   }

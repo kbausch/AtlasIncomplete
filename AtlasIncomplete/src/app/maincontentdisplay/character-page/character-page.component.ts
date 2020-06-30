@@ -19,13 +19,7 @@ export class CharacterPageComponent implements OnInit {
   }
 
   getCharacterList() {
-    this.dataretriever.getMainCharactersList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(characters => {
+    this.dataretriever.getMainCharactersList().valueChanges().subscribe(characters => {
       this.characterList = characters;
     });
   }
