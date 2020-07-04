@@ -7,7 +7,7 @@
         </ngb-alert>
         <ngx-auth-firebaseui-login providers="['google']"
             logoUrl="https://media.discordapp.net/attachments/467185767593148418/723315672649695312/Atlas_Incomplete_Icon_2.png"
-            (onSuccess)="printUser($event)" (onCreateAccountRequested)="createAccount()">
+            (onSuccess)="goHome()" (onCreateAccountRequested)="createAccount()">
         </ngx-auth-firebaseui-login>
     </div>
 </div>

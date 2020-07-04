@@ -1,16 +1,16 @@
-<div class="row ml-4 mr-4 justify-content-around" *ngFor="let character of characterList">
+<div class="row ml-4 mr-4 justify-content-around oldscript" *ngFor="let character of characterList">
     <div class="col-12 col-sm-10 col-md-4 mt-4">
         <div class="card border-0 h-100">
             <img [src]="character.image" class="card-img-top align-self-center"
                 style="max-height:275px; max-width: 15rem;" [alt]="character.title">
             <div class="card-body text-center p-2">
-                <h3 class="oldscript m-0">{{character.title}}</h3>
+                <h3 class="m-0">{{character.title}}</h3>
             </div>
         </div>
     </div>
     <div class="col-12 col-sm-10 col-md-7 mt-4">
         <div class="card border-0 h-100">
-            <div class="card-title p-2 oldscript">
+            <div class="card-title p-2">
                 <h3 class="m-2 font-weight-bolder"><u>{{character.title}}</u> ({{character.race}})</h3>
                 <h5>Age: {{character.age}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aspect:
                     {{character.aspect}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Health: {{character.health}}

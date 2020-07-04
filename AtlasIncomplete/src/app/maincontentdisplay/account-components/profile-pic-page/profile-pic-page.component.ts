@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataRetrieverService } from 'src/app/shared/services/data-retriever.service';
-import { map } from 'rxjs/operators';
 import { CharactersModel } from 'src/app/shared/models/characters-model';
 
 @Component({
@@ -18,12 +17,8 @@ export class ProfilePicPageComponent implements OnInit {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.dataretriever.getMainCharactersList().valueChanges().subscribe(characters => {
-      this.mainCharacterList = characters;
-    });
-    this.dataretriever.getOtherCharactersList().valueChanges().subscribe(characters => {
-      this.otherCharacterList = characters;
-    });
+    this.dataretriever.getMainCharactersList().subscribe((characters: CharactersModel[]) => this.mainCharacterList = characters);
+    this.dataretriever.getOtherCharactersList().subscribe(characters => this.otherCharacterList = characters);
   }
 
   updateProfPic(url: string) {

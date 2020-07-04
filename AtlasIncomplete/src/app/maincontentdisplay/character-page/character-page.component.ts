@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersModel } from '../../shared/models/characters-model';
 import { DataRetrieverService } from '../../shared/services/data-retriever.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-character-page',
@@ -15,13 +14,7 @@ export class CharacterPageComponent implements OnInit {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.getCharacterList();
-  }
-
-  getCharacterList() {
-    this.dataretriever.getMainCharactersList().valueChanges().subscribe(characters => {
-      this.characterList = characters;
-    });
+    this.dataretriever.getMainCharactersList().subscribe((characters : CharactersModel[]) => this.characterList = characters);
   }
 
 }

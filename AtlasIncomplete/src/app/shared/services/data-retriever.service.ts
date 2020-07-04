@@ -12,20 +12,19 @@ import { map } from 'rxjs/operators';
 export class DataRetrieverService {
 
   private database: any;
-  private mainNavRef: AngularFireList<NavigationModel> = null;
-  closed: boolean;
+  private mainNavRef: AngularFireList<NavigationModel>;
 
   constructor(private db: AngularFireDatabase) {
     this.mainNavRef = db.list('/mainnavlink');
     this.database = db.database;
   }
 
-  getMainCharactersList(): AngularFireList<CharactersModel> {
-    return this.db.list('/characters/Main');
+  getMainCharactersList(): Observable<unknown[]> {
+    return this.db.list('/characters/Main').valueChanges();
   }
 
-  getOtherCharactersList(): AngularFireList<any> {
-    return this.db.list('/characters/Other');
+  getOtherCharactersList(): Observable<unknown[]> {
+    return this.db.list('/characters/Other').valueChanges();
   }
 
   getMainNavRef(): Observable<any> {
@@ -38,8 +37,14 @@ export class DataRetrieverService {
     );
   }
 
-  getThreadNavRef(): AngularFireList<any> {
-    return this.db.list('/posts');
+  getThreadNavRef(): Observable<object[]> {
+    return this.db.list('/posts').snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key })
+        )
+      )
+    );
   }
 
   getThreadsRef(thread: string): Observable<any> {

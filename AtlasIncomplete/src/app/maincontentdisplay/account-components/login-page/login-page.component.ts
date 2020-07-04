@@ -13,7 +13,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  printUser(event) {
+  goHome() {
     this.route.navigateByUrl('/');
   }
 

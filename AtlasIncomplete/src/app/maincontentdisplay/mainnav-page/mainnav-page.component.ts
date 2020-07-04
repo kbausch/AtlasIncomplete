@@ -14,13 +14,7 @@ export class MainnavPageComponent implements OnInit {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.getNavList();
-  }
-
-  getNavList() {
-    this.dataretriever.getMainNavRef().subscribe(navlinks => {
-      this.navList = navlinks;
-    });
+    this.dataretriever.getMainNavRef().subscribe(navlinks => this.navList = navlinks);
   }
 
 }

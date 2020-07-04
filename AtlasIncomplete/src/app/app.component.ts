@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { fader } from './router-animations';
 import { RouterOutlet } from '@angular/router';
-import * as firebase from 'firebase/app';
-import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +12,6 @@ export class AppComponent {
   title = 'AtlasIncomplete';
 
   constructor(){
-    firebase.initializeApp(environment.firebase);
   }
 
   prepareRoute(outlet: RouterOutlet) {
