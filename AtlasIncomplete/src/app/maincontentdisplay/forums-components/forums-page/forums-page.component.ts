@@ -1,5 +1,5 @@
-import { Component, OnChanges, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnChanges, Input, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { DataRetrieverService } from '../../../shared/services/data-retriever.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -8,12 +8,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: './forums-page.component.html',
   styleUrls: ['./forums-page.component.scss']
 })
-export class ForumsPageComponent implements OnChanges {
+export class ForumsPageComponent implements OnChanges, OnDestroy {
 
   @Input('thread') thread: string;
   user: firebase.User;
   posts: boolean;
   subThreads: Observable<any>;
+  subThreadSub: Subscription;
   subThreadsList: string[];
   subThreadName: string;
   showToast = false;
@@ -32,7 +33,7 @@ export class ForumsPageComponent implements OnChanges {
     this.postNum = 0;
     this.posts = false;
     this.subThreads = this.dataretriever.getThreadsRef(this.thread);
-    this.subThreads.subscribe(result => {
+    this.subThreadSub = this.subThreads.subscribe(result => {
       if (this.posts === false) {
         this.postNum = result.length;
       }
@@ -41,6 +42,10 @@ export class ForumsPageComponent implements OnChanges {
         this.subThreadsList.push(element.key);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subThreadSub.unsubscribe();
   }
 
   selectSubThread(subThread: string) {

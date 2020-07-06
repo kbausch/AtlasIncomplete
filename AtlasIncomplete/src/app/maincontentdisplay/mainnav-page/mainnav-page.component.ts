@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationModel } from '../../shared/models/navigation-model';
 import { DataRetrieverService } from '../../shared/services/data-retriever.service';
+import { CharactersModel } from 'src/app/shared/models/characters-model';
 
 @Component({
   selector: 'app-mainnav-page',
@@ -9,12 +9,12 @@ import { DataRetrieverService } from '../../shared/services/data-retriever.servi
 })
 export class MainnavPageComponent implements OnInit {
 
-  navList: NavigationModel[];
+  navList: CharactersModel[];
 
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.dataretriever.getMainNavRef().subscribe(navlinks => this.navList = navlinks);
+    this.dataretriever.getMainNavRef().query.once('value').then(result => this.navList = result.val());
   }
 
 }

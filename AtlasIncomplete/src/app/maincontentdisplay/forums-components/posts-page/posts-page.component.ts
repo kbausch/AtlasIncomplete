@@ -1,6 +1,6 @@
 import { Component, OnChanges, EventEmitter, Input, Output } from '@angular/core';
 import { DataRetrieverService } from '../../../shared/services/data-retriever.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-posts-page',
@@ -15,6 +15,7 @@ export class PostsPageComponent implements OnChanges {
   @Output('postNum') postNum = new EventEmitter<number>();
 
   posts: Observable<any>;
+  postsSub: Subscription;
   closed: boolean;
   postText: string;
 
@@ -22,7 +23,11 @@ export class PostsPageComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.posts = this.dataretriever.getThreadsRef(this.threadMain);
-    this.posts.subscribe(result => { this.postNum.emit(result.length - 3); });
+    this.postsSub = this.posts.subscribe(result => { this.postNum.emit(result.length - 3); });
+  }
+  
+  ngOnDestroy(): void {
+    this.postsSub.unsubscribe();
   }
 
   testKey(key: string): boolean {

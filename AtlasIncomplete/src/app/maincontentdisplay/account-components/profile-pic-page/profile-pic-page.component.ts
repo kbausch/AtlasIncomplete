@@ -11,14 +11,14 @@ export class ProfilePicPageComponent implements OnInit {
 
   @Input('user') user: firebase.User;
   mainCharacterList: CharactersModel[];
-  otherCharacterList: any[];
+  otherCharacterList: CharactersModel[];
 
 
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.dataretriever.getMainCharactersList().subscribe((characters: CharactersModel[]) => this.mainCharacterList = characters);
-    this.dataretriever.getOtherCharactersList().subscribe(characters => this.otherCharacterList = characters);
+    this.dataretriever.getMainCharactersList().query.once('value').then(result => this.mainCharacterList = result.val());
+    this.dataretriever.getOtherCharactersList().query.once('value').then(result => this.otherCharacterList = result.val());
   }
 
   updateProfPic(url: string) {

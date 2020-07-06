@@ -14,7 +14,7 @@ export class CharacterPageComponent implements OnInit {
   constructor(private dataretriever: DataRetrieverService) { }
 
   ngOnInit(): void {
-    this.dataretriever.getMainCharactersList().subscribe((characters : CharactersModel[]) => this.characterList = characters);
+    this.dataretriever.getMainCharactersList().query.once('value').then(result => this.characterList = result.val());
   }
 
 }
